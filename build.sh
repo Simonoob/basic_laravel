@@ -1,3 +1,6 @@
+echo '--------- ls'
+ls -la
+
 echo '--------- install composer dependencies'
 docker run --rm \
     -u "$(id -u):$(id -g)" \
