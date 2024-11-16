@@ -14,6 +14,12 @@ ENV TZ=UTC
 ENV SUPERVISOR_PHP_COMMAND="/usr/bin/php -d variables_order=EGPCS /var/www/html/artisan serve --host=0.0.0.0 --port=80"
 ENV SUPERVISOR_PHP_USER="sail"
 
+# define laravel sail variables
+RUN export APP_SERVICE=${APP_SERVICE:-"laravel.test"}
+RUN export DB_PORT=${DB_PORT:-3306}
+RUN export WWWUSER=${WWWUSER:-$UID}
+RUN export WWWGROUP=${WWWGROUP:-$(id -g)}
+
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN echo "Acquire::http::Pipeline-Depth 0;" > /etc/apt/apt.conf.d/99custom && \
