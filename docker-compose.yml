@@ -1,6 +1,5 @@
 networks:
     custom_network:
-        external: true
 volumes:
     db_data:
         external: true
