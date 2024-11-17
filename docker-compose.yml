@@ -2,7 +2,6 @@ networks:
     custom_network:
 volumes:
     db_data:
-        external: true
 services:
     laravel_app:
         build:
@@ -11,7 +10,7 @@ services:
         env_file:
             - .env
         ports:
-            - "80:80"
+            - "9000:9000"
         volumes:
             - .:/var/www/html
         networks:
