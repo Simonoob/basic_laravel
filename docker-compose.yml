@@ -1,7 +1,9 @@
 networks:
     custom_network:
+        external: true
 volumes:
     db_data:
+        external: true
 services:
     laravel_app:
         build:
