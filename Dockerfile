@@ -28,7 +28,7 @@ RUN composer install
 RUN npm install
 
 
-EXPOSE 80
+# EXPOSE 80
 
 # run migrations and start the server
 # CMD php artisan migrate \
