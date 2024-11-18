@@ -1,36 +1,31 @@
-# Dockerfile
-FROM php:8.3
+FROM serversideup/php:8.3-fpm-nginx
 
-# Install Laravel dependencies and extensions
-RUN apt-get update && apt-get install -y \
-    git \
-    zip \
-    unzip \
-    libzip-dev \
-    nodejs \
-    npm
+ENV PHP_OPCACHE_ENABLE=1
 
-RUN npm install -g npm
+USER root
 
-RUN curl -sLS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
+# Install Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get update \
+    && apt-get install -y nodejs \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install PHP extensions
-RUN docker-php-ext-install pdo_mysql zip
+# Copy application files
+COPY --chown=www-data:www-data . /var/www/html
 
-# Set the working directory
-WORKDIR /var/www/html
+# Switch to non-root user
+USER www-data
 
-# Copy Laravel app into the container
-COPY . .
+# Install dependencies and build
+RUN npm ci \
+    && npm run build \
+    && rm -rf /var/www/html/.npm
 
-# Install app dependencies
-RUN composer install
-RUN npm install
+# Install PHP dependencies
+RUN composer install --no-interaction --optimize-autoloader --no-dev
 
+# Remove composer cache
+RUN rm -rf /var/www/html/.composer/cache
 
-# EXPOSE 80
-
-# run migrations and start the server
-# CMD php artisan migrate \
-# && artisan serve --host=0.0.0.0 --port=8000
-CMD php artisan serve --host=0.0.0.0 --port=9000
+CMD php artisan serve --host 0.0.0.0 --port 80
