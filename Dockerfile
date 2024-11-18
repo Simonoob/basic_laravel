@@ -15,7 +15,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 COPY --chown=www-data:www-data . /var/www/html
 
 # Switch to non-root user
-USER www-data
+# USER www-data
 
 # Install dependencies and build
 RUN npm ci \
