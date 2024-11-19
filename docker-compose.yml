@@ -1,14 +1,29 @@
 volumes:
     db_data:
+        name: db_data
+networks:
+    coolify:
+        external: true
 services:
     laravel_app:
         build:
             context: .
             dockerfile: Dockerfile
-        ports:
-            - "80"
+        extra_hosts:
+            - host.docker.internal:host-gateway
+        networks:
+            - coolify
+        expose:
+            - "80:8000"
         volumes:
             - ".:/var/www/html"
+        labels:
+            - caddy_0.encode=zstd gzip
+            - caddy_0.handle_path.0_reverse_proxy={{upstreams 80}}
+            - caddy_0.handle_path=/*
+            - caddy_0.header=-Server
+            - caddy_0.try_files={path} /index.html /index.php
+            - caddy_0=https://portfolio.simonoob.com
         environment:
             PHP_FPM_POOL_NAME: "app"
             AUTORUN_ENABLED: "${AUTORUN_ENABLED}"
@@ -64,5 +79,7 @@ services:
             MYSQL_PASSWORD: ${DB_PASSWORD}
         ports:
             - "3306:3306"
+        networks:
+            - coolify
         volumes:
             - db_data:/var/lib/mysql
