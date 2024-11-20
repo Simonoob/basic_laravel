@@ -22,8 +22,7 @@ services:
             - caddy_0.handle_path.0_reverse_proxy={{upstreams 80}}
             - caddy_0.handle_path=/*
             - caddy_0.header=-Server
-            - caddy_0.try_files={path} /index.html /index.php
-            - caddy_0=https://portfolio.simonoob.com
+            - caddy_0=https://https://basic_laravel.simonoob.com
         environment:
             PHP_FPM_POOL_NAME: "app"
             AUTORUN_ENABLED: "${AUTORUN_ENABLED}"
