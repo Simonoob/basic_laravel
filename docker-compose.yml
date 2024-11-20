@@ -13,8 +13,8 @@ services:
             - host.docker.internal:host-gateway
         networks:
             - coolify
-        expose:
-            - "80:8000"
+        ports:
+            - "8000:8000"
         volumes:
             - ".:/var/www/html"
         labels:
