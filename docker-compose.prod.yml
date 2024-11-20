@@ -75,7 +75,7 @@ services:
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "33060:33060"
+      - "3306:3306"
     networks:
       - coolify
     volumes:
