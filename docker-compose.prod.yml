@@ -17,6 +17,12 @@ services:
       - "8001:8000"
     volumes:
       - ".:/var/www/html"
+    healthcheck:
+      test: curl --fail http://127.0.0.1:8000 || exit 1
+      interval: 5s
+      retries: 10
+      timeout: 2s
+
     environment:
       PHP_FPM_POOL_NAME: "app"
       AUTORUN_ENABLED: "${AUTORUN_ENABLED}"
@@ -76,3 +82,8 @@ services:
       - web
     volumes:
       - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "service mysqld status"]
+      interval: 5s
+      retries: 10
+      timeout: 2s
