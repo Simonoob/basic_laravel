@@ -2,8 +2,8 @@ volumes:
   db_data:
     name: db_data
 networks:
-  web:
-    name: web
+  coolify:
+    external: true
 services:
   laravel_app:
     build:
@@ -12,7 +12,7 @@ services:
     extra_hosts:
       - host.docker.internal:host-gateway
     networks:
-      - web
+      - coolify
     ports:
       - "8001:8000"
     volumes:
@@ -79,7 +79,7 @@ services:
     ports:
       - "3306:3306"
     networks:
-      - web
+      - coolify
     volumes:
       - db_data:/var/lib/mysql
     healthcheck:
