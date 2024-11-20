@@ -28,4 +28,4 @@ RUN composer install --no-interaction --optimize-autoloader --no-dev
 # Remove composer cache
 RUN rm -rf /var/www/html/.composer/cache
 
-CMD php artisan serve --port 8000
+CMD php artisan serve
