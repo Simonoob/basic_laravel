@@ -12,7 +12,7 @@ services:
     networks:
       - coolify
     ports:
-      - "443:8000"
+      - "8001:8000"
     volumes:
       - ".:/var/www/html"
     healthcheck:
@@ -76,7 +76,7 @@ services:
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "3306:${DB_PORT}"
+      - "${DB_PORT}:${DB_PORT}"
     networks:
       - coolify
     volumes:
