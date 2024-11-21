@@ -12,7 +12,7 @@ services:
     networks:
       - coolify
     ports:
-      - "8001:8000"
+      - "443:8000"
     volumes:
       - ".:/var/www/html"
     healthcheck:
