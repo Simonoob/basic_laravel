@@ -3,6 +3,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prod
+    labels:
+      - caddy=${APP_URL}
+      - caddy.reverse_proxy="* {{upstreams 8080}}"
     networks:
       - coolify
     ports:
@@ -10,7 +13,7 @@ services:
     volumes:
       - ".:/var/www/html"
     healthcheck:
-      test: curl --fail http://0.0.0.0:8080 || exit 1
+      test: curl --fail ${APP_URL} || exit 1
       interval: 10s
       retries: 10
       timeout: 2s
@@ -50,7 +53,6 @@ services:
       - coolify
     volumes:
       - db_data:/var/lib/mysql
-    exclude_from_hc: true
 volumes:
   db_data:
     name: db_data
