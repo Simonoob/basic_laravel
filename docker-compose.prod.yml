@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile.prod
     networks:
       - coolify
-    expose:
+    ports:
       - "8080"
     volumes:
       - ".:/var/www/html"
@@ -44,7 +44,7 @@ services:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
-    expose:
+    ports:
       - "${DB_PORT}"
     networks:
       - coolify
