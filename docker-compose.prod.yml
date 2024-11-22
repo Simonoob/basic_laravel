@@ -53,6 +53,7 @@ services:
 volumes:
   db_data:
     name: db_data
+    external: true
 networks:
   coolify:
     external: true
