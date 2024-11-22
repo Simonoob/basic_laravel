@@ -3,9 +3,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prod
-    labels:
-      - caddy=${APP_URL}
-      - caddy.reverse_proxy="* {{upstreams 8080}}"
     networks:
       - coolify
     ports:
