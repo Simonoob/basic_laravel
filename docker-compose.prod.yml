@@ -3,8 +3,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prod
-    networks:
-      - coolify
     ports:
       - "8080"
     volumes:
@@ -41,20 +39,14 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      MYSQL_HOST: ${DB_HOST}
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
       - "${DB_PORT}"
-    networks:
-      - coolify
     volumes:
       - db_data:/var/lib/mysql
 volumes:
   db_data:
     name: db_data
-    external: true
-networks:
-  coolify:
     external: true
