@@ -17,15 +17,14 @@ COPY --chown=www-data:www-data . /var/www/html
 # Switch to non-root user
 # USER www-data
 
-# Install dependencies and build
-RUN npm ci \
-    && npm run build \
-    && rm -rf /var/www/html/.npm
-
 # Install PHP dependencies
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 
 # Remove composer cache
 RUN rm -rf /var/www/html/.composer/cache
+
+# Install dependencies and build
+RUN npm ci \
+    && npm run build
 
 CMD php artisan serve --host 0.0.0.0 --port 8080
