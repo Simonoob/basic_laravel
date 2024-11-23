@@ -16,6 +16,7 @@ services:
       timeout: 2s
 
     environment:
+      PORT: "8080"
       PHP_FPM_POOL_NAME: app
       AUTORUN_ENABLED: ${AUTORUN_ENABLED}
       APP_NAME: ${APP_NAME}
